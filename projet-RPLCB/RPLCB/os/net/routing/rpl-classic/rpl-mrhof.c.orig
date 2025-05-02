@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2024, MADANI-BELACEL
+ * All rights reserved.
+ */
+
+/**
+ * \file
+ *         MRHOF (Minimum Rank with Hysteresis Objective Function) implementation for RPL
+ * \author
+ *         MADANI-BELACEL
+ */
+
+#include "contiki.h"
+#include "net/routing/rpl-classic/rpl.h"
+#include "net/routing/rpl-classic/rpl-private.h"
+#include "net/ipv6/uip.h"
+#include "net/ipv6/uip-ds6-nbr.h"
+#include "net/nbr-table.h"
+#include "net/link-stats.h"
+
+#define DEBUG DEBUG_NONE
+#include "net/ipv6/uip-debug.h"
+
+/* RFC6719 constants */
+#define MRHOF_PARENT_SWITCH_THRESHOLD 384
+#define MRHOF_MAX_RANK_INCREASE      0
+
+static rpl_of_t mrhof = {
+  .ocp = RPL_OCP_MRHOF,
+  .reset = reset,
+  .neighbor_link_callback = neighbor_link_callback,
+  .best_parent = best_parent,
+  .calculate_rank = calculate_rank,
+  .update_metric_container = update_metric_container
+};
+
+static void reset(rpl_dag_t *dag)
+{
+  /* Reset the DAG's objective function state */
+}
+
+static void neighbor_link_callback(rpl_parent_t *parent, int known, int etx)
+{
+  /* Handle link metric updates */
+}
+
+static rpl_parent_t *best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
+{
+  /* Compare and select the best parent based on MRHOF */
+  return NULL;
+}
+
+static uint16_t calculate_rank(rpl_parent_t *parent, uint16_t base_rank)
+{
+  /* Calculate node rank based on MRHOF */
+  return 0;
+}
+
+static int update_metric_container(rpl_instance_t *instance)
+{
+  /* Update the metric container */
+  return 0;
+}
+
+rpl_of_t *rpl_mrhof_init(void)
+{
+  return &mrhof;
+}
